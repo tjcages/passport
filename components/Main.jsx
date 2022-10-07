@@ -1,40 +1,67 @@
 import React, { useState } from "react";
-import Link from "next/link"
+
+import useSWR from 'swr'
 import { QRCode } from "react-qrcode-logo";
 import styles from "../styles/components/main.module.scss";
 
+const fetcher = (...args) => fetch(...args).then((res) => console.log(res))
+
 const Main = () => {
+  const { data, error } = useSWR('/api/passbook', fetcher)
   const [value, setValue] = useState("");
-  const [error, setError] = useState(null)
-  const [metadata, setMetadata] = useState(null)
+  // const [error, setError] = useState(null);
+  const [metadata, setMetadata] = useState(null);
 
   const handleCreateQR = async () => {
-    if (error) setError(null)
-    if (metadata) setMetadata(null)
+    if (error) setError(null);
+    if (metadata) setMetadata(null);
 
     const JSONdata = JSON.stringify({
       url: value,
-    })
+    });
 
-    const endpoint = '/api/metadata'
+    const endpoint = "/api/metadata";
 
     const options = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSONdata,
-    }
+    };
 
-    const response = await fetch(endpoint, options)
-    const result = await response.json()
+    const response = await fetch(endpoint, options);
+    const result = await response.json();
 
-    console.log(result)
+    console.log(result);
     if (response.ok) {
-      setMetadata(result)
+      setMetadata(result);
     } else {
-      setError(result)
+      setError(result);
     }
+  };
+
+  const handleCreatePass = async () => {
+
+
+    // const JSONdata = JSON.stringify({
+    //   url: "http://google.com",
+    // });
+
+    // const endpoint = "/api/passbook";
+
+    // const options = {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSONdata,
+    // };
+
+    // const response = await fetch(endpoint, options);
+    // const result = await response.json();
+
+    // console.log(result);
   };
 
   return (
@@ -43,6 +70,7 @@ const Main = () => {
 
       <p className={styles.description}>
         Paste a link to generate a QR code you can easily share{" "}
+        {data && JSON.stringify(data)}
       </p>
       <div className={styles.inputContainer}>
         <input onChange={(e) => setValue(e.target.value)} />
@@ -63,14 +91,7 @@ const Main = () => {
           </div>
         </div>
       </div>
-      <Link
-        href={{
-          pathname: "/api/passbook",
-          query: { url: value },
-        }}
-      >
-        Hello world
-      </Link>
+      <button onClick={() => handleCreatePass()}>GET APPLE WALLET PASS</button>
     </div>
   );
 };

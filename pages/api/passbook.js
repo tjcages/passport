@@ -1,13 +1,15 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-async function GeneratePass(data) {
+async function GeneratePass() {
+  console.log("Starting")
   const { Template, Pass } = require("@walletpass/pass-js");
 
+  console.log("Generating pass")
   const template = await Template.load("./public/passport.pass");
   await template.loadCertificate("./public/keys/com.passport.passbook.pem", "125968");
 
   template.barcodes = [
     {
-      message: data.url,
+      message: "https://www.passport.com",
       format: "PKBarcodeFormatQR",
       messageEncoding: "iso-8859-1",
     },
@@ -30,11 +32,11 @@ async function GeneratePass(data) {
     value: "turds",
   });
 
-  template.secondaryFields.add({
-    key: "id",
-    label: "IDENTIFICATION NUMBER",
-    value: "123",
-  });
+  // template.secondaryFields.add({
+  //   key: "id",
+  //   label: "IDENTIFICATION NUMBER",
+  //   value: "123",
+  // });
 
   template.auxiliaryFields.add({
     key: "expiration",
@@ -66,7 +68,7 @@ async function GeneratePass(data) {
     value: "authority 2",
   });
 
-  console.log(data.category);
+  // console.log(data.category);
   console.log("done");
   const pass = template.createPass();
 
@@ -75,8 +77,15 @@ async function GeneratePass(data) {
 }
 
 export default async function handler(req, res) {
-  const data = req.query;
-  const file = await GeneratePass(await data);
+  console.log("Got here")
+  // const data = req.query;
+  const file = await GeneratePass();
 
   res.status(200).send(file);
+}
+
+export async function doTheSameThing() {
+  console.log("Got here")
+  const data = req.query;
+  const file = await GeneratePass(await data);
 }
