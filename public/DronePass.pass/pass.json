@@ -1,0 +1,57 @@
+{
+  "formatVersion": 1,
+  "passTypeIdentifier": "pass.com.krystynawie.dronelicense",
+  "serialNumber": "8j23tm3",
+  "webServiceURL": "https://drony.ulc.gov.pl",
+  "authenticationToken": "vxwxd7J8AlNNFPS8k0a0FfUFtq0ewzFdc",
+  "teamIdentifier": "274R4GM2Y4",
+  "barcode": {
+    "message": "https://drony.ulc.gov.pl/pilot/display/6cca31ee5f38b3c810a67045d5535d33",
+    "format": "PKBarcodeFormatQR",
+    "messageEncoding": "iso-8859-1"
+  },
+  "organizationName": "WieStudio",
+  "description": "DronePass",
+  "foregroundColor": "rgb(255, 255, 255)",
+  "labelColor": "rgb(255, 255, 255)",
+  "isRemotePass": true,
+  "backgroundColor": "rgb(35, 55, 166)",
+  "generic": {
+    "secondaryFields": [
+      {
+        "key": "id",
+        "label": "IDENTIFICATION NUMBER",
+        "value": "POL-RP-45b6fe4149cf"
+      },
+      {
+        "key": "category",
+        "label": "CATEGORY",
+        "value": "A1/A3"
+      }
+    ],
+    "auxiliaryFields": [
+      {
+        "key": "expiration",
+        "label": "EXPIRATION DATE",
+        "value": "Jul 29, 2027"
+      },
+      {
+        "key": "authority",
+        "label": "AUTHORITY",
+        "value": "Urząd Lotnictwa Cywilnego"
+      },
+      {
+        "key": "country",
+        "label": "COUNTRY",
+        "value": "Poland"
+      }
+    ],
+    "backFields": [
+    {
+      "label": "Digital Version Issued By",
+      "key": "issuer",
+      "value": "DronePass"
+    }
+    ]
+  }
+}

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link"
 import { QRCode } from "react-qrcode-logo";
 import styles from "../styles/components/main.module.scss";
 
@@ -62,6 +63,14 @@ const Main = () => {
           </div>
         </div>
       </div>
+      <Link
+        href={{
+          pathname: "/api/passbook",
+          query: { url: value },
+        }}
+      >
+        Hello world
+      </Link>
     </div>
   );
 };
