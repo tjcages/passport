@@ -2,8 +2,8 @@
 async function GeneratePass(data) {
   const { Template, Pass } = require("@walletpass/pass-js");
 
-  const template = await Template.load("./Public/DronePass.pass");
-  await template.loadCertificate("./Public/keys/com.passport.passbook.pem", "125968");
+  const template = await Template.load("./public/passport.pass");
+  await template.loadCertificate("./public/keys/com.passport.passbook.pem", "125968");
 
   template.barcodes = [
     {
@@ -16,54 +16,54 @@ async function GeneratePass(data) {
   template.headerFields.add({
     label: "DIGITAL LICENSE",
     key: "header",
-    value: data.pid,
+    value: "TYler Guyy",
   });
 
   // Insert full name as primary field
   template.primaryFields.add({
     key: "name",
-    value: data.name,
+    value: "Me silly",
   });
   template.secondaryFields.add({
     key: "category",
     label: "CATEGORY",
-    value: data.category,
+    value: "turds",
   });
 
   template.secondaryFields.add({
     key: "id",
     label: "IDENTIFICATION NUMBER",
-    value: data.pid,
+    value: "123",
   });
 
   template.auxiliaryFields.add({
     key: "expiration",
     label: "EXPIRATION DATE",
-    value: data.expiration,
+    value: "exp 10",
   });
 
   template.auxiliaryFields.add({
     key: "authority",
     label: "AUTHORITY",
-    value: data.authority,
+    value: "authority",
   });
 
   template.auxiliaryFields.add({
     key: "country",
     label: "COUNTRY",
-    value: data.country,
+    value: "USA",
   });
 
   template.backFields.add({
     label: "Country",
     key: "country_back",
-    value: data.country,
+    value: "USA 2",
   });
 
   template.backFields.add({
     label: "National Aviation Authority",
     key: "authority_back",
-    value: data.authority,
+    value: "authority 2",
   });
 
   console.log(data.category);
