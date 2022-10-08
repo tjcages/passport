@@ -48,20 +48,20 @@ const Main = () => {
     //   url: "http://google.com",
     // });
 
-    // const endpoint = "/api/passbook";
+    const endpoint = "/api/passbook";
 
-    // const options = {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSONdata,
-    // };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: "",
+    };
 
-    // const response = await fetch(endpoint, options);
+    const response = await fetch(endpoint, options);
     // const result = await response.json();
 
-    // console.log(result);
+    console.log(response);
   };
 
   return (
