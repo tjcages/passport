@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-
-import useSWR from 'swr'
+import Link from "next/link";
+import Image from "next/image";
 import { QRCode } from "react-qrcode-logo";
 import styles from "../styles/components/main.module.scss";
 
-const fetcher = (...args) => fetch(...args).then((res) => console.log(res))
-
 const Main = () => {
-  const { data, error } = useSWR('/api/passbook', fetcher)
   const [value, setValue] = useState("");
   // const [error, setError] = useState(null);
   const [metadata, setMetadata] = useState(null);
@@ -41,36 +38,12 @@ const Main = () => {
     }
   };
 
-  const handleCreatePass = async () => {
-
-
-    // const JSONdata = JSON.stringify({
-    //   url: "http://google.com",
-    // });
-
-    const endpoint = "/api/passbook";
-
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: "",
-    };
-
-    const response = await fetch(endpoint, options);
-    // const result = await response.json();
-
-    console.log(response);
-  };
-
   return (
     <div className={styles.main}>
       <h1 className={styles.title}>Passport</h1>
 
       <p className={styles.description}>
         Paste a link to generate a QR code you can easily share{" "}
-        {data && JSON.stringify(data)}
       </p>
       <div className={styles.inputContainer}>
         <input onChange={(e) => setValue(e.target.value)} />
@@ -91,7 +64,19 @@ const Main = () => {
           </div>
         </div>
       </div>
-      <button onClick={() => handleCreatePass()}>GET APPLE WALLET PASS</button>
+      <Link
+        href={{
+          pathname: "/api/passbook.pkpass",
+        }}
+      >
+        <Image
+          src="/img/wallet.svg"
+          alt="Apple Wallet Button"
+          className="h-16"
+          width={200}
+          height={50}
+        />
+      </Link>
     </div>
   );
 };
