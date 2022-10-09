@@ -1,25 +1,24 @@
 import fs from "fs";
 import path from "path";
+import getConfig from "next/config";
 
 async function GeneratePass(data) {
   const { Template } = require("@walletpass/pass-js");
 
   console.log("Starting pass generation");
 
-  // const template = await Template.load("../passport.pass", "125968");
-  const template = new Template("coupon", {
-    passTypeIdentifier: "pass.passport.wallet",
-    teamIdentifier: "HE452HL4WS",
-    backgroundColor: "red",
-    sharingProhibited: true,
-  });
-  await template.loadCertificate("../keys/sign.pem", "125968", {
+  const { serverRuntimeConfig } = getConfig();
+
+  path.join(serverRuntimeConfig.PROJECT_ROOT, "./public")
+
+  const template = await Template.load("./public/passport.pass", "125968");
+  await template.loadCertificate("./public/keys/sign.pem", "125968", {
     allowHttp: true,
   });
 
   console.log("Loaded template");
-  template.passTypeIdentifier = "pass.passport.wallet";
-  template.teamIdentifier = "HE452HL4WS";
+  // template.passTypeIdentifier = "pass.passport.wallet";
+  // template.teamIdentifier = "HE452HL4WS";
 
   template.barcodes = [
     {
@@ -28,6 +27,8 @@ async function GeneratePass(data) {
       messageEncoding: "iso-8859-1",
     },
   ];
+
+  console.log("Added barcodes");
 
   const pass = template.createPass();
   const file = await pass.asBuffer();
