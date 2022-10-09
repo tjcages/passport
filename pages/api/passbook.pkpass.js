@@ -1,16 +1,23 @@
-const { Template } = require("@walletpass/pass-js");
+import fs from 'fs'
+import path from 'path'
 
 async function GeneratePass(data) {
+  const { Template } = require("@walletpass/pass-js");
+
   console.log("Starting pass generation");
 
-  const template = await Template.load("./public/passport.pass", "125968");
-  await template.loadCertificate("./public/keys/sign.pem", "125968", {
-    allowHttp: true,
+  // const template = await Template.load("./public/passport.pass", "125968");
+  const template = new Template("generic", {
+    passTypeIdentifier: "pass.passport.wallet",
+    teamIdentifier: "HE452HL4WS",
+    backgroundColor: "red",
+    sharingProhibited: true
   });
+  await template.loadCertificate("./public/keys/sign.pem", "125968");
 
   console.log("Loaded template");
-  template.passTypeIdentifier = "pass.passport.wallet";
-  template.teamIdentifier = "HE452HL4WS";
+  // template.passTypeIdentifier = "pass.passport.wallet";
+  // template.teamIdentifier = "HE452HL4WS";
 
   template.barcodes = [
     {
