@@ -1,12 +1,18 @@
-import fs from 'fs'
-import path from 'path'
+import fs from "fs";
+import path from "path";
 
 async function GeneratePass(data) {
   const { Template } = require("@walletpass/pass-js");
 
   console.log("Starting pass generation");
 
-  const template = await Template.load("../passport.pass", "125968");
+  // const template = await Template.load("../passport.pass", "125968");
+  const template = new Template("coupon", {
+    passTypeIdentifier: "pass.passport.wallet",
+    teamIdentifier: "HE452HL4WS",
+    backgroundColor: "red",
+    sharingProhibited: true,
+  });
   await template.loadCertificate("../keys/sign.pem", "125968", {
     allowHttp: true,
   });
@@ -39,7 +45,7 @@ export default async function handler(req, res) {
     console.log(data);
     console.log(file);
 
-    res.send(file)
+    res.send(file);
   } catch (err) {
     res.status(500).send({ error: "failed to fetch data", message: err });
   }
