@@ -11,7 +11,7 @@ async function GeneratePass(data) {
 
   path.join(serverRuntimeConfig.PROJECT_ROOT, "./public")
 
-  const template = await Template.load("./public/passport.pass", "125968");
+  const template = await Template.load("https://passport-nyc.vercel.app/passport.pass", "125968");
   await template.loadCertificate("./public/keys/sign.pem", "125968", {
     allowHttp: true,
   });
