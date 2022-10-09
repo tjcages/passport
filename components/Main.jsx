@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import download from "downloadjs";
 import { QRCode } from "react-qrcode-logo";
 import styles from "../styles/components/main.module.scss";
 
 const Main = () => {
   const [value, setValue] = useState("");
-  // const [error, setError] = useState(null);
+  const [error, setError] = useState(null);
   const [metadata, setMetadata] = useState(null);
 
   const handleCreateQR = async () => {
@@ -38,6 +39,40 @@ const Main = () => {
     }
   };
 
+  const handleSaveToWallet = async () => {
+    const endpoint = "/api/passbook.pkpass";
+
+    // const options = {
+    //   method: "GET",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   // body: JSONdata,
+    // };
+
+    const response = await fetch(endpoint);
+    // const result = await response.json();
+
+    // console.log(result);
+    
+    // var fr = new FileReader();
+    // fr.onload = function () {
+    //   var data = fr.result;
+    //   var array = new Int8Array(data);
+    //   console.log(array)
+    // };
+    // fr.readAsArrayBuffer(result.file.data);
+
+    // download(result.file.data, "passport.pkpass", "application/vnd.apple.pkpass");
+
+    // if (response.ok) {
+    //   console.log("Ok")
+    // } else {
+    //   console.log("Error: ", response);
+    //   setError(response);
+    // }
+  };
+
   return (
     <div className={styles.main}>
       <h1 className={styles.title}>Passport</h1>
@@ -49,6 +84,16 @@ const Main = () => {
         <input onChange={(e) => setValue(e.target.value)} />
         <button onClick={() => handleCreateQR()}>Create</button>
       </div>
+
+      <button onClick={() => handleSaveToWallet()}>
+        <Image
+          src="/img/wallet.svg"
+          alt="Apple Wallet Button"
+          className="h-16"
+          width={200}
+          height={50}
+        />
+      </button>
 
       <div className={styles.grid}>
         <div className={styles.card}>
@@ -64,19 +109,6 @@ const Main = () => {
           </div>
         </div>
       </div>
-      <Link
-        href={{
-          pathname: "/api/passbook.pkpass",
-        }}
-      >
-        <Image
-          src="/img/wallet.svg"
-          alt="Apple Wallet Button"
-          className="h-16"
-          width={200}
-          height={50}
-        />
-      </Link>
     </div>
   );
 };

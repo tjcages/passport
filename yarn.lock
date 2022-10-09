@@ -528,6 +528,11 @@
   "resolved" "https://registry.npmjs.org/domino/-/domino-2.1.6.tgz"
   "version" "2.1.6"
 
+"downloadjs@^1.4.7":
+  "integrity" "sha512-LN1gO7+u9xjU5oEScGFKvXhYf7Y/empUIIEAGBs1LzUq/rg5duiDrkuH5A2lQGd5jfMOb9X9usDa2oVXwJ0U/Q=="
+  "resolved" "https://registry.npmjs.org/downloadjs/-/downloadjs-1.4.7.tgz"
+  "version" "1.4.7"
+
 "emoji-regex@^9.2.2":
   "integrity" "sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg=="
   "resolved" "https://registry.npmjs.org/emoji-regex/-/emoji-regex-9.2.2.tgz"

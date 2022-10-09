@@ -29,11 +29,16 @@ async function GeneratePass(data) {
 }
 
 export default async function handler(req, res) {
-  const data = req.query;
-  const file = await GeneratePass(await data);
+  try {
+    const data = req.query;
+    const file = await GeneratePass(await data);
 
-  console.log(data)
-  console.log(file)
+    console.log(data);
+    console.log(file);
 
-  res.status(200).send(file);
+    res.send(file)
+    res.json({ file });
+  } catch (err) {
+    res.status(500).send({ error: "failed to fetch data", message: err });
+  }
 }
