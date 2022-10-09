@@ -1,24 +1,25 @@
-import fs from "fs";
-import path from "path";
-import getConfig from "next/config";
+const request = require('request');
+var fs = require('fs');
+var path = require('path');
+const { Template } = require("@walletpass/pass-js");
 
 async function GeneratePass(data) {
-  const { Template } = require("@walletpass/pass-js");
-
   console.log("Starting pass generation");
 
-  const { serverRuntimeConfig } = getConfig();
+  request('https://passport-nyc.vercel.app/passport.pass/pass.json').pipe(fs.createWriteStream('passport.pass/pass.json'));
+  request('https://passport-nyc.vercel.app/keys/sign.pem').pipe(fs.createWriteStream('sign.pem'))
 
-  path.join(serverRuntimeConfig.PROJECT_ROOT, "./public")
+  console.log("set")
 
-  const template = await Template.load("https://passport-nyc.vercel.app/passport.pass/pass.json", "125968");
+  const filePath = path.join(process.cwd(), './public/passport.pass');
+  const template = await Template.load(filePath, "125968");
   await template.loadCertificate("./public/keys/sign.pem", "125968", {
     allowHttp: true,
   });
 
   console.log("Loaded template");
-  // template.passTypeIdentifier = "pass.passport.wallet";
-  // template.teamIdentifier = "HE452HL4WS";
+  template.passTypeIdentifier = "pass.passport.wallet";
+  template.teamIdentifier = "HE452HL4WS";
 
   template.barcodes = [
     {
@@ -27,8 +28,6 @@ async function GeneratePass(data) {
       messageEncoding: "iso-8859-1",
     },
   ];
-
-  console.log("Added barcodes");
 
   const pass = template.createPass();
   const file = await pass.asBuffer();

@@ -51,19 +51,9 @@ const Main = () => {
     // };
 
     const response = await fetch(endpoint);
-    // const result = await response.json();
+    const result = await response.json();
 
-    // console.log(result);
-    
-    // var fr = new FileReader();
-    // fr.onload = function () {
-    //   var data = fr.result;
-    //   var array = new Int8Array(data);
-    //   console.log(array)
-    // };
-    // fr.readAsArrayBuffer(result.file.data);
-
-    // download(result.file.data, "passport.pkpass", "application/vnd.apple.pkpass");
+    download(result.file.data, "passport.pkpass", "application/vnd.apple.pkpass");
 
     // if (response.ok) {
     //   console.log("Ok")
