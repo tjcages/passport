@@ -6,18 +6,14 @@ async function GeneratePass(data) {
 
   console.log("Starting pass generation");
 
-  // const template = await Template.load("./public/passport.pass", "125968");
-  const template = new Template("generic", {
-    passTypeIdentifier: "pass.passport.wallet",
-    teamIdentifier: "HE452HL4WS",
-    backgroundColor: "red",
-    sharingProhibited: true
+  const template = await Template.load("./passport.pass", "125968");
+  await template.loadCertificate("./keys/sign.pem", "125968", {
+    allowHttp: true,
   });
-  await template.loadCertificate("https://github.com/tjcages/passport/blob/main/public/keys/sign.pem?raw=1", "125968");
 
   console.log("Loaded template");
-  // template.passTypeIdentifier = "pass.passport.wallet";
-  // template.teamIdentifier = "HE452HL4WS";
+  template.passTypeIdentifier = "pass.passport.wallet";
+  template.teamIdentifier = "HE452HL4WS";
 
   template.barcodes = [
     {
@@ -44,7 +40,6 @@ export default async function handler(req, res) {
     console.log(file);
 
     res.send(file)
-    res.json({ file });
   } catch (err) {
     res.status(500).send({ error: "failed to fetch data", message: err });
   }
