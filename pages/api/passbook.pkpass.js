@@ -13,7 +13,7 @@ async function GeneratePass(data) {
     backgroundColor: "red",
     sharingProhibited: true
   });
-  await template.loadCertificate("./public/keys/sign.pem", "125968");
+  await template.loadCertificate("https://github.com/tjcages/passport/blob/main/public/keys/sign.pem?raw=1", "125968");
 
   console.log("Loaded template");
   // template.passTypeIdentifier = "pass.passport.wallet";
