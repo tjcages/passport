@@ -6,8 +6,8 @@ async function GeneratePass(data) {
 
   console.log("Starting pass generation");
 
-  const template = await Template.load("./passport.pass", "125968");
-  await template.loadCertificate("./keys/sign.pem", "125968", {
+  const template = await Template.load("../passport.pass", "125968");
+  await template.loadCertificate("../keys/sign.pem", "125968", {
     allowHttp: true,
   });
 
